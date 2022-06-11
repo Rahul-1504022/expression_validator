@@ -1,6 +1,8 @@
+//get Element
 let ele = document.getElementById('postal_code_input');
 let phn = document.getElementById('phone_number');
 let eml = document.getElementById('email');
+let cnt = document.getElementById('country_code_input');
 
 //function
 //show postal code on front-end
@@ -89,6 +91,33 @@ function clearEmailInput(code){
     <button type = "submit" value = "submit">Check</button>`
 }
 
+//country code
+function showCountryForm(){
+    cnt.innerHTML = `<label for="country_input">Country Code</label>
+    <input type="text" id="country_input" name="country_input">
+    <button type = "submit" value = "submit">Check</button>`
+}
+function inputCountryCode(e){
+    e.preventDefault();
+    let result = document.querySelector('#result');
+    let code = document.getElementById('country_input').value;
+    let expression = /^(\+?\d{1,3}|\d{1,4})$/;
+    if(expression.test(code)){
+        result.innerHTML = `The input Country Code : <b>${code}</b> is valid!`;
+    }
+    else{
+        result.innerHTML = `The input Country Code : <b>${code}</b> is invalid!`;
+    }
+    console.log(code);
+    code = '';
+    clearCountryInput(code);
+}
+function clearCountryInput(code){
+    cnt.innerHTML = `<label for="country_input">Country Code</label>
+    <input type="text" id="country_input" name="country_input" value="${code}">
+    <button type = "submit" value = "submit">Check</button>`
+}
+
 //addEventListener
 document.querySelector('#postal').addEventListener('click',showPostalCodeForm);
 document.querySelector('#postal_code_input').addEventListener('submit',inputPostalCode);
@@ -96,3 +125,5 @@ document.querySelector('#phone').addEventListener('click',showPhoneForm);
 document.querySelector('#phone_number').addEventListener('submit',inputPhonenumber);
 document.querySelector('#email_btn').addEventListener('click',showEmailForm);
 document.querySelector('#email').addEventListener('submit',inputEmail);
+document.querySelector('#country_code_btn').addEventListener('click',showCountryForm);
+cnt.addEventListener('submit',inputCountryCode);
